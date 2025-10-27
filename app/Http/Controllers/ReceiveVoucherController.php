@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ReceiveVoucher;
+use Illuminate\Http\Request;
+
+class ReceiveVoucherController extends Controller
+{
+    public function index()
+    {
+        $vouchers = ReceiveVoucher::orderBy('created_at', 'desc')->get();
+        return response()->json($vouchers);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'voucher_no' => 'required|string|max:50|unique:receive_vouchers',
+            'date' => 'required|date',
+            'payer' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'amount' => 'required|numeric|min:0',
+            'status' => 'required|in:รอรับ,รออนุมัติ,รับแล้ว,ยกเลิก',
+            'receive_method' => 'nullable|string|max:50',
+            'withholding_tax_no' => 'nullable|string|max:50',
+            'withholding_tax_amount' => 'nullable|numeric|min:0',
+            'receive_date' => 'nullable|date',
+        ]);
+
+        $voucher = ReceiveVoucher::create($validated);
+
+        return response()->json([
+            'message' => 'เพิ่มใบสำคัญรับเงินสำเร็จ',
+            'data' => $voucher
+        ], 201);
+    }
+
+    public function show($id)
+    {
+        $voucher = ReceiveVoucher::findOrFail($id);
+        return response()->json($voucher);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'voucher_no' => 'required|string|max:50|unique:receive_vouchers,voucher_no,' . $id,
+            'date' => 'required|date',
+            'payer' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'amount' => 'required|numeric|min:0',
+            'status' => 'required|in:รอรับ,รออนุมัติ,รับแล้ว,ยกเลิก',
+            'receive_method' => 'nullable|string|max:50',
+            'withholding_tax_no' => 'nullable|string|max:50',
+            'withholding_tax_amount' => 'nullable|numeric|min:0',
+            'receive_date' => 'nullable|date',
+        ]);
+
+        $voucher = ReceiveVoucher::findOrFail($id);
+        $voucher->update($validated);
+
+        return response()->json([
+            'message' => 'อัปเดตใบสำคัญรับเงินสำเร็จ',
+            'data' => $voucher
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $voucher = ReceiveVoucher::findOrFail($id);
+        $voucher->delete();
+
+        return response()->json([
+            'message' => 'ลบใบสำคัญรับเงินสำเร็จ'
+        ]);
+    }
+}
