@@ -14,11 +14,18 @@ class ProductController extends Controller
             'id' => $p->id,
             'code' => $p->code,
             'name' => $p->name,
+            'type' => $p->type,
             'category_id' => $p->category_id,
             'category' => optional($p->category)->name ?? '(ไม่ระบุ)',
-            'price' => $p->price,
-            'stock' => $p->stock,
+            'quantity' => $p->quantity,
+            'unit' => $p->unit,
+            'purchase_price' => $p->purchase_price ?? 0,
+            'sale_price' => $p->sale_price ?? 0,
+            'description' => $p->description,
             'status' => $p->status,
+            // Legacy fields for backward compatibility
+            'price' => $p->price ?? $p->sale_price ?? 0,
+            'stock' => $p->stock ?? $p->quantity,
         ];
     });
 
@@ -31,9 +38,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|max:50',
             'name' => 'required|string|max:255',
+            'type' => 'nullable|string|max:50',
             'category_id' => 'nullable|integer|exists:categories,id',
-            'price' => 'nullable|numeric',
-            'stock' => 'nullable|integer',
+            'quantity' => 'nullable|integer',
+            'unit' => 'nullable|string|max:50',
+            'purchase_price' => 'nullable|numeric',
+            'sale_price' => 'nullable|numeric',
+            'description' => 'nullable|string',
             'status' => 'required|string|max:50',
         ]);
 
@@ -53,11 +64,18 @@ class ProductController extends Controller
             'id' => $product->id,
             'code' => $product->code,
             'name' => $product->name,
+            'type' => $product->type,
             'category_id' => $product->category_id,
             'category' => optional($product->category)->name ?? '(ไม่ระบุ)',
-            'price' => number_format($product->price, 2),
-            'stock' => $product->stock,
+            'quantity' => $product->quantity,
+            'unit' => $product->unit,
+            'purchase_price' => $product->purchase_price ?? 0,
+            'sale_price' => $product->sale_price ?? 0,
+            'description' => $product->description,
             'status' => $product->status,
+            // Legacy fields
+            'price' => $product->price ?? $product->sale_price ?? 0,
+            'stock' => $product->stock ?? $product->quantity,
         ]);
     }
 
@@ -66,9 +84,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|max:50',
             'name' => 'required|string|max:255',
+            'type' => 'nullable|string|max:50',
             'category_id' => 'nullable|integer|exists:categories,id',
-            'price' => 'nullable|numeric',
-            'stock' => 'nullable|integer',
+            'quantity' => 'nullable|integer',
+            'unit' => 'nullable|string|max:50',
+            'purchase_price' => 'nullable|numeric',
+            'sale_price' => 'nullable|numeric',
+            'description' => 'nullable|string',
             'status' => 'required|string|max:50',
         ]);
 

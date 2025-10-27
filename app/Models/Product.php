@@ -12,10 +12,17 @@ class Product extends Model
     protected $fillable = [
         'code',
         'name',
+        'type',
         'category_id',
+        'quantity',
+        'unit',
+        'purchase_price',
+        'sale_price',
+        'description',
+        'status',
+        // Legacy fields for backward compatibility
         'price',
         'stock',
-        'status',
     ];
 
     public function category()
