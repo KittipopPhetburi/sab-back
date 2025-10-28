@@ -115,4 +115,23 @@ class QuotationController extends Controller
             'message' => 'ลบใบเสนอราคาสำเร็จ'
         ]);
     }
+
+    /**
+     * Update only the status of a quotation.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $quotation = Quotation::findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
+        ]);
+
+        $quotation->update(['status' => $validated['status']]);
+
+        return response()->json([
+            'message' => 'อัปเดตสถานะใบเสนอราคาสำเร็จ',
+            'data' => $quotation
+        ]);
+    }
 }

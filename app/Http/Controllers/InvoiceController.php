@@ -42,7 +42,7 @@ class InvoiceController extends Controller
             'after_discount' => 'required|numeric|min:0',
             'vat' => 'required|numeric|min:0',
             'grand_total' => 'required|numeric|min:0',
-            'status' => 'nullable|in:draft,sent,paid,cancelled',
+            'status' => 'nullable|in:draft,pending,paid,cancelled',
             'due_date' => 'nullable|date',
         ]);
 
@@ -96,7 +96,7 @@ class InvoiceController extends Controller
             'after_discount' => 'required|numeric|min:0',
             'vat' => 'required|numeric|min:0',
             'grand_total' => 'required|numeric|min:0',
-            'status' => 'nullable|in:draft,sent,paid,cancelled',
+            'status' => 'nullable|in:draft,pending,paid,cancelled',
             'due_date' => 'nullable|date',
         ]);
 
@@ -123,6 +123,25 @@ class InvoiceController extends Controller
 
         return response()->json([
             'message' => 'ลบใบแจ้งหนี้สำเร็จ'
+        ]);
+    }
+
+    /**
+     * Update only the status of an invoice.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $invoice = Invoice::findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|in:draft,pending,paid,cancelled',
+        ]);
+
+        $invoice->update(['status' => $validated['status']]);
+
+        return response()->json([
+            'message' => 'อัปเดตสถานะใบแจ้งหนี้สำเร็จ',
+            'data' => $invoice
         ]);
     }
 }

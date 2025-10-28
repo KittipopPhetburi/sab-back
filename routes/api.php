@@ -63,6 +63,7 @@ Route::apiResource('receipts', ReceiptController::class);
 use App\Http\Controllers\InvoiceController;
 
 Route::apiResource('invoices', InvoiceController::class);
+Route::patch('/invoices/{id}/status', [InvoiceController::class, 'updateStatus']);
 
 use App\Http\Controllers\TaxInvoiceController;
 
@@ -72,10 +73,12 @@ Route::post('/tax-invoices/{id}/send-email', [TaxInvoiceController::class, 'send
 use App\Http\Controllers\PurchaseOrderController;
 
 Route::apiResource('purchase-orders', PurchaseOrderController::class);
+Route::patch('/purchase-orders/{id}/status', [PurchaseOrderController::class, 'updateStatus']);
 
 use App\Http\Controllers\QuotationController;
 
 Route::apiResource('quotations', QuotationController::class);
+Route::patch('/quotations/{id}/status', [QuotationController::class, 'updateStatus']);
 
 use App\Http\Controllers\ReceiveVoucherController;
 

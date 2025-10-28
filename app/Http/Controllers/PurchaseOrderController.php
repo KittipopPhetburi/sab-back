@@ -115,4 +115,23 @@ class PurchaseOrderController extends Controller
             'message' => 'ลบใบสั่งซื้อสำเร็จ'
         ]);
     }
+
+    /**
+     * Update only the status of a purchase order.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $purchaseOrder = PurchaseOrder::findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|in:ร่าง,รอจัดส่ง,จัดส่งแล้ว,ยกเลิก',
+        ]);
+
+        $purchaseOrder->update(['status' => $validated['status']]);
+
+        return response()->json([
+            'message' => 'อัปเดตสถานะใบสั่งซื้อสำเร็จ',
+            'data' => $purchaseOrder
+        ]);
+    }
 }
