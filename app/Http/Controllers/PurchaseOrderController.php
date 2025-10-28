@@ -18,11 +18,35 @@ class PurchaseOrderController extends Controller
         $validated = $request->validate([
             'po_number' => 'required|string|max:50|unique:purchase_orders',
             'date' => 'required|date',
-            'supplier' => 'required|string|max:255',
+            'supplier' => 'nullable|string|max:255',
+            'supplier_code' => 'nullable|string|max:50',
+            'supplier_name' => 'required|string|max:255',
+            'supplier_address' => 'nullable|string',
+            'supplier_tax_id' => 'nullable|string|max:20',
+            'supplier_phone' => 'nullable|string|max:20',
+            'supplier_email' => 'nullable|email|max:100',
+            'reference_doc' => 'nullable|string|max:100',
+            'shipping_address' => 'nullable|string',
+            'shipping_phone' => 'nullable|string|max:20',
+            'items' => 'required|string',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric|min:0',
+            'notes' => 'nullable|string',
+            'discount' => 'nullable|numeric|min:0|max:100',
+            'vat_rate' => 'nullable|numeric|min:0|max:100',
+            'subtotal' => 'required|numeric|min:0',
+            'discount_amount' => 'required|numeric|min:0',
+            'after_discount' => 'required|numeric|min:0',
+            'vat' => 'required|numeric|min:0',
+            'grand_total' => 'required|numeric|min:0',
+            'amount' => 'nullable|numeric|min:0',
             'status' => 'required|in:ร่าง,รอจัดส่ง,จัดส่งแล้ว,ยกเลิก',
+            'expected_delivery_date' => 'nullable|date',
         ]);
+
+        // แปลง items จาก JSON string เป็น array
+        if (isset($validated['items'])) {
+            $validated['items'] = json_decode($validated['items'], true);
+        }
 
         $purchaseOrder = PurchaseOrder::create($validated);
 
@@ -43,11 +67,35 @@ class PurchaseOrderController extends Controller
         $validated = $request->validate([
             'po_number' => 'required|string|max:50|unique:purchase_orders,po_number,' . $id,
             'date' => 'required|date',
-            'supplier' => 'required|string|max:255',
+            'supplier' => 'nullable|string|max:255',
+            'supplier_code' => 'nullable|string|max:50',
+            'supplier_name' => 'required|string|max:255',
+            'supplier_address' => 'nullable|string',
+            'supplier_tax_id' => 'nullable|string|max:20',
+            'supplier_phone' => 'nullable|string|max:20',
+            'supplier_email' => 'nullable|email|max:100',
+            'reference_doc' => 'nullable|string|max:100',
+            'shipping_address' => 'nullable|string',
+            'shipping_phone' => 'nullable|string|max:20',
+            'items' => 'required|string',
             'description' => 'nullable|string',
-            'amount' => 'required|numeric|min:0',
+            'notes' => 'nullable|string',
+            'discount' => 'nullable|numeric|min:0|max:100',
+            'vat_rate' => 'nullable|numeric|min:0|max:100',
+            'subtotal' => 'required|numeric|min:0',
+            'discount_amount' => 'required|numeric|min:0',
+            'after_discount' => 'required|numeric|min:0',
+            'vat' => 'required|numeric|min:0',
+            'grand_total' => 'required|numeric|min:0',
+            'amount' => 'nullable|numeric|min:0',
             'status' => 'required|in:ร่าง,รอจัดส่ง,จัดส่งแล้ว,ยกเลิก',
+            'expected_delivery_date' => 'nullable|date',
         ]);
+
+        // แปลง items จาก JSON string เป็น array
+        if (isset($validated['items'])) {
+            $validated['items'] = json_decode($validated['items'], true);
+        }
 
         $purchaseOrder = PurchaseOrder::findOrFail($id);
         $purchaseOrder->update($validated);

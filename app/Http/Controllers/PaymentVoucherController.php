@@ -15,8 +15,10 @@ class PaymentVoucherController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'voucher_no' => 'nullable|string|max:50',
             'date' => 'required|date',
             'payee' => 'required|string|max:255',
+            'payee_id' => 'nullable|integer',
             'description' => 'nullable|string',
             'amount' => 'required|numeric',
             'status' => 'required|string|max:50',
@@ -24,6 +26,17 @@ class PaymentVoucherController extends Controller
             'withholding_tax_no' => 'nullable|string|max:50',
             'withholding_tax_amount' => 'nullable|numeric',
             'payment_date' => 'nullable|date',
+            'tax_type' => 'nullable|string|max:20',
+            'salesperson' => 'nullable|string|max:255',
+            'items' => 'nullable|json',
+            'notes' => 'nullable|string',
+            'discount' => 'nullable|numeric|min:0|max:100',
+            'vat_rate' => 'nullable|numeric|min:0',
+            'subtotal' => 'nullable|numeric|min:0',
+            'discount_amount' => 'nullable|numeric|min:0',
+            'after_discount' => 'nullable|numeric|min:0',
+            'vat' => 'nullable|numeric|min:0',
+            'grand_total' => 'nullable|numeric|min:0',
         ]);
 
         $voucher = PaymentVoucher::create($validated);
@@ -39,8 +52,10 @@ class PaymentVoucherController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
+            'voucher_no' => 'nullable|string|max:50',
             'date' => 'required|date',
             'payee' => 'required|string|max:255',
+            'payee_id' => 'nullable|integer',
             'description' => 'nullable|string',
             'amount' => 'required|numeric',
             'status' => 'required|string|max:50',
@@ -48,6 +63,17 @@ class PaymentVoucherController extends Controller
             'withholding_tax_no' => 'nullable|string|max:50',
             'withholding_tax_amount' => 'nullable|numeric',
             'payment_date' => 'nullable|date',
+            'tax_type' => 'nullable|string|max:20',
+            'salesperson' => 'nullable|string|max:255',
+            'items' => 'nullable|json',
+            'notes' => 'nullable|string',
+            'discount' => 'nullable|numeric|min:0|max:100',
+            'vat_rate' => 'nullable|numeric|min:0',
+            'subtotal' => 'nullable|numeric|min:0',
+            'discount_amount' => 'nullable|numeric|min:0',
+            'after_discount' => 'nullable|numeric|min:0',
+            'vat' => 'nullable|numeric|min:0',
+            'grand_total' => 'nullable|numeric|min:0',
         ]);
 
         $voucher = PaymentVoucher::findOrFail($id);

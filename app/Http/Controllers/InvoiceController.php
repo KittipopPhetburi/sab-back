@@ -2,34 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Quotation;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 
-class QuotationController extends Controller
+class InvoiceController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $quotations = Quotation::orderBy('created_at', 'desc')->get();
-        return response()->json($quotations);
+        $invoices = Invoice::orderBy('created_at', 'desc')->get();
+        return response()->json($invoices);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'quotation_number' => 'required|string|max:50|unique:quotations',
-            'date' => 'required|date',
-            'customer' => 'nullable|string|max:255',
+            'invoice_no' => 'required|string|max:50|unique:invoices',
+            'invoice_date' => 'required|date',
             'customer_code' => 'nullable|string|max:50',
             'customer_name' => 'required|string|max:255',
             'customer_address' => 'nullable|string',
-            'customer_tax_id' => 'nullable|string|max:20',
+            'customer_tax_id' => 'nullable|string|max:50',
             'customer_phone' => 'nullable|string|max:20',
-            'customer_email' => 'nullable|email|max:100',
-            'reference_doc' => 'nullable|string|max:100',
+            'customer_email' => 'nullable|email|max:255',
+            'reference_doc' => 'nullable|string|max:255',
             'shipping_address' => 'nullable|string',
             'shipping_phone' => 'nullable|string|max:20',
-            'items' => 'required|string',
-            'description' => 'nullable|string',
+            'items' => 'required|string', // JSON string
             'notes' => 'nullable|string',
             'discount' => 'nullable|numeric|min:0|max:100',
             'vat_rate' => 'nullable|numeric|min:0|max:100',
@@ -38,9 +42,8 @@ class QuotationController extends Controller
             'after_discount' => 'required|numeric|min:0',
             'vat' => 'required|numeric|min:0',
             'grand_total' => 'required|numeric|min:0',
-            'amount' => 'nullable|numeric|min:0',
-            'status' => 'required|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
-            'valid_until' => 'nullable|date',
+            'status' => 'nullable|in:draft,sent,paid,cancelled',
+            'due_date' => 'nullable|date',
         ]);
 
         // แปลง items จาก JSON string เป็น array
@@ -48,37 +51,43 @@ class QuotationController extends Controller
             $validated['items'] = json_decode($validated['items'], true);
         }
 
-        $quotation = Quotation::create($validated);
+        $invoice = Invoice::create($validated);
 
         return response()->json([
-            'message' => 'เพิ่มใบเสนอราคาสำเร็จ',
-            'data' => $quotation
+            'message' => 'สร้างใบแจ้งหนี้สำเร็จ',
+            'data' => $invoice
         ], 201);
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show($id)
     {
-        $quotation = Quotation::findOrFail($id);
-        return response()->json($quotation);
+        $invoice = Invoice::findOrFail($id);
+        return response()->json($invoice);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $id)
     {
+        $invoice = Invoice::findOrFail($id);
+
         $validated = $request->validate([
-            'quotation_number' => 'required|string|max:50|unique:quotations,quotation_number,' . $id,
-            'date' => 'required|date',
-            'customer' => 'nullable|string|max:255',
+            'invoice_no' => 'required|string|max:50|unique:invoices,invoice_no,' . $id,
+            'invoice_date' => 'required|date',
             'customer_code' => 'nullable|string|max:50',
             'customer_name' => 'required|string|max:255',
             'customer_address' => 'nullable|string',
-            'customer_tax_id' => 'nullable|string|max:20',
+            'customer_tax_id' => 'nullable|string|max:50',
             'customer_phone' => 'nullable|string|max:20',
-            'customer_email' => 'nullable|email|max:100',
-            'reference_doc' => 'nullable|string|max:100',
+            'customer_email' => 'nullable|email|max:255',
+            'reference_doc' => 'nullable|string|max:255',
             'shipping_address' => 'nullable|string',
             'shipping_phone' => 'nullable|string|max:20',
-            'items' => 'required|string',
-            'description' => 'nullable|string',
+            'items' => 'required|string', // JSON string
             'notes' => 'nullable|string',
             'discount' => 'nullable|numeric|min:0|max:100',
             'vat_rate' => 'nullable|numeric|min:0|max:100',
@@ -87,9 +96,8 @@ class QuotationController extends Controller
             'after_discount' => 'required|numeric|min:0',
             'vat' => 'required|numeric|min:0',
             'grand_total' => 'required|numeric|min:0',
-            'amount' => 'nullable|numeric|min:0',
-            'status' => 'required|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
-            'valid_until' => 'nullable|date',
+            'status' => 'nullable|in:draft,sent,paid,cancelled',
+            'due_date' => 'nullable|date',
         ]);
 
         // แปลง items จาก JSON string เป็น array
@@ -97,22 +105,24 @@ class QuotationController extends Controller
             $validated['items'] = json_decode($validated['items'], true);
         }
 
-        $quotation = Quotation::findOrFail($id);
-        $quotation->update($validated);
+        $invoice->update($validated);
 
         return response()->json([
-            'message' => 'อัปเดตใบเสนอราคาสำเร็จ',
-            'data' => $quotation
+            'message' => 'อัปเดตใบแจ้งหนี้สำเร็จ',
+            'data' => $invoice
         ]);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($id)
     {
-        $quotation = Quotation::findOrFail($id);
-        $quotation->delete();
+        $invoice = Invoice::findOrFail($id);
+        $invoice->delete();
 
         return response()->json([
-            'message' => 'ลบใบเสนอราคาสำเร็จ'
+            'message' => 'ลบใบแจ้งหนี้สำเร็จ'
         ]);
     }
 }

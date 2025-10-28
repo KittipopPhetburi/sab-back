@@ -60,6 +60,10 @@ use App\Http\Controllers\ReceiptController;
 
 Route::apiResource('receipts', ReceiptController::class);
 
+use App\Http\Controllers\InvoiceController;
+
+Route::apiResource('invoices', InvoiceController::class);
+
 use App\Http\Controllers\TaxInvoiceController;
 
 Route::apiResource('tax-invoices', TaxInvoiceController::class);

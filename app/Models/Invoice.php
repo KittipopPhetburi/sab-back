@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Quotation extends Model
+class Invoice extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'quotation_number',
-        'date',
-        'customer',
+        'invoice_no',
+        'invoice_date',
         'customer_code',
         'customer_name',
         'customer_address',
@@ -23,7 +22,6 @@ class Quotation extends Model
         'shipping_address',
         'shipping_phone',
         'items',
-        'description',
         'notes',
         'discount',
         'vat_rate',
@@ -32,16 +30,14 @@ class Quotation extends Model
         'after_discount',
         'vat',
         'grand_total',
-        'amount',
         'status',
-        'valid_until',
+        'due_date',
     ];
 
     protected $casts = [
-        'date' => 'date',
-        'valid_until' => 'date',
-        'amount' => 'decimal:2',
         'items' => 'array',
+        'invoice_date' => 'date',
+        'due_date' => 'date',
         'discount' => 'decimal:2',
         'vat_rate' => 'decimal:2',
         'subtotal' => 'decimal:2',
