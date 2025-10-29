@@ -55,6 +55,7 @@ Route::apiResource('customers', CustomerController::class);
 use App\Http\Controllers\PaymentVoucherController;
 
 Route::apiResource('payment-vouchers', PaymentVoucherController::class);
+Route::patch('/payment-vouchers/{id}/status', [PaymentVoucherController::class, 'updateStatus']);
 
 use App\Http\Controllers\ReceiptController;
 

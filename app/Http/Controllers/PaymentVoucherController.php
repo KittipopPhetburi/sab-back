@@ -89,4 +89,23 @@ class PaymentVoucherController extends Controller
 
         return response()->json(['message' => 'ลบข้อมูลสำเร็จ']);
     }
+
+    /**
+     * Update only the status of a payment voucher.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $voucher = PaymentVoucher::findOrFail($id);
+
+        $validated = $request->validate([
+            'status' => 'required|string|max:50',
+        ]);
+
+        $voucher->update(['status' => $validated['status']]);
+
+        return response()->json([
+            'message' => 'อัปเดตสถานะใบสำคัญจ่ายสำเร็จ',
+            'data' => $voucher
+        ]);
+    }
 }
