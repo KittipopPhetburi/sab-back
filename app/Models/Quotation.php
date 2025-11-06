@@ -12,6 +12,9 @@ class Quotation extends Model
     protected $fillable = [
         'quotation_number',
         'date',
+        'seller_name',
+        'seller_phone',
+        'seller_email',
         'customer',
         'customer_code',
         'customer_name',

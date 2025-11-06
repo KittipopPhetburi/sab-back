@@ -18,6 +18,9 @@ class QuotationController extends Controller
         $validated = $request->validate([
             'quotation_number' => 'required|string|max:50|unique:quotations',
             'date' => 'required|date',
+            'seller_name' => 'nullable|string|max:255',
+            'seller_phone' => 'nullable|string|max:20',
+            'seller_email' => 'nullable|email|max:100',
             'customer' => 'nullable|string|max:255',
             'customer_code' => 'nullable|string|max:50',
             'customer_name' => 'required|string|max:255',
@@ -67,6 +70,9 @@ class QuotationController extends Controller
         $validated = $request->validate([
             'quotation_number' => 'required|string|max:50|unique:quotations,quotation_number,' . $id,
             'date' => 'required|date',
+            'seller_name' => 'nullable|string|max:255',
+            'seller_phone' => 'nullable|string|max:20',
+            'seller_email' => 'nullable|email|max:100',
             'customer' => 'nullable|string|max:255',
             'customer_code' => 'nullable|string|max:50',
             'customer_name' => 'required|string|max:255',
