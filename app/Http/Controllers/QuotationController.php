@@ -44,11 +44,21 @@ class QuotationController extends Controller
             'amount' => 'nullable|numeric|min:0',
             'status' => 'required|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
             'valid_until' => 'nullable|date',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
 
         // แปลง items จาก JSON string เป็น array
         if (isset($validated['items'])) {
             $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
         }
 
         $quotation = Quotation::create($validated);
@@ -96,11 +106,21 @@ class QuotationController extends Controller
             'amount' => 'nullable|numeric|min:0',
             'status' => 'required|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
             'valid_until' => 'nullable|date',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
 
         // แปลง items จาก JSON string เป็น array
         if (isset($validated['items'])) {
             $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
         }
 
         $quotation = Quotation::findOrFail($id);

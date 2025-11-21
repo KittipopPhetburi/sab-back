@@ -38,6 +38,7 @@ class Quotation extends Model
         'amount',
         'status',
         'valid_until',
+        'doc_type',
     ];
 
     protected $casts = [
@@ -53,4 +54,20 @@ class Quotation extends Model
         'vat' => 'decimal:2',
         'grand_total' => 'decimal:2',
     ];
+
+    protected $appends = ['doc_type_label'];
+
+    /**
+     * Get the Thai label for doc_type
+     */
+    public function getDocTypeLabelAttribute()
+    {
+        return match($this->doc_type) {
+            'original' => 'ต้นฉบับ',
+            'copy' => 'สำเนา',
+            default => $this->doc_type,
+        };
+    }
+
 }
+

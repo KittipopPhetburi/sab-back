@@ -26,6 +26,7 @@ class InvoiceController extends Controller
             'invoice_date' => 'required|date',
             'customer_code' => 'nullable|string|max:50',
             'customer_name' => 'required|string|max:255',
+            'seller_name' => 'nullable|string|max:255',
             'customer_address' => 'nullable|string',
             'customer_tax_id' => 'nullable|string|max:50',
             'customer_phone' => 'nullable|string|max:20',
@@ -44,11 +45,21 @@ class InvoiceController extends Controller
             'grand_total' => 'required|numeric|min:0',
             'status' => 'nullable|in:draft,pending,paid,cancelled',
             'due_date' => 'nullable|date',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
 
         // แปลง items จาก JSON string เป็น array
         if (isset($validated['items'])) {
             $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
         }
 
         $invoice = Invoice::create($validated);
@@ -80,6 +91,7 @@ class InvoiceController extends Controller
             'invoice_date' => 'required|date',
             'customer_code' => 'nullable|string|max:50',
             'customer_name' => 'required|string|max:255',
+            'seller_name' => 'nullable|string|max:255',
             'customer_address' => 'nullable|string',
             'customer_tax_id' => 'nullable|string|max:50',
             'customer_phone' => 'nullable|string|max:20',
@@ -98,11 +110,21 @@ class InvoiceController extends Controller
             'grand_total' => 'required|numeric|min:0',
             'status' => 'nullable|in:draft,pending,paid,cancelled',
             'due_date' => 'nullable|date',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
 
         // แปลง items จาก JSON string เป็น array
         if (isset($validated['items'])) {
             $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
         }
 
         $invoice->update($validated);

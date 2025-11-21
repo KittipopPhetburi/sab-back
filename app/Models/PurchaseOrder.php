@@ -35,6 +35,10 @@ class PurchaseOrder extends Model
         'amount',
         'status',
         'expected_delivery_date',
+        'buyer_name',
+        'buyer_phone',
+        'buyer_email',
+        'doc_type',
     ];
 
     protected $casts = [
@@ -50,4 +54,19 @@ class PurchaseOrder extends Model
         'grand_total' => 'decimal:2',
         'expected_delivery_date' => 'date',
     ];
+
+    protected $appends = ['doc_type_label'];
+
+    /**
+     * Get the Thai label for doc_type
+     */
+    public function getDocTypeLabelAttribute()
+    {
+        return match($this->doc_type) {
+            'original' => 'ต้นฉบับ',
+            'copy' => 'สำเนา',
+            default => $this->doc_type,
+        };
+    }
 }
+

@@ -41,11 +41,24 @@ class PurchaseOrderController extends Controller
             'amount' => 'nullable|numeric|min:0',
             'status' => 'required|in:ร่าง,รอจัดส่ง,จัดส่งแล้ว,ยกเลิก',
             'expected_delivery_date' => 'nullable|date',
+            'buyer_name' => 'nullable|string|max:255',
+            'buyer_phone' => 'nullable|string|max:20',
+            'buyer_email' => 'nullable|email|max:100',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
 
         // แปลง items จาก JSON string เป็น array
         if (isset($validated['items'])) {
             $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
         }
 
         $purchaseOrder = PurchaseOrder::create($validated);
@@ -90,11 +103,24 @@ class PurchaseOrderController extends Controller
             'amount' => 'nullable|numeric|min:0',
             'status' => 'required|in:ร่าง,รอจัดส่ง,จัดส่งแล้ว,ยกเลิก',
             'expected_delivery_date' => 'nullable|date',
+            'buyer_name' => 'nullable|string|max:255',
+            'buyer_phone' => 'nullable|string|max:20',
+            'buyer_email' => 'nullable|email|max:100',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
 
         // แปลง items จาก JSON string เป็น array
         if (isset($validated['items'])) {
             $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
         }
 
         $purchaseOrder = PurchaseOrder::findOrFail($id);

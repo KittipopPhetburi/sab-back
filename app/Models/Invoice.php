@@ -14,6 +14,7 @@ class Invoice extends Model
         'invoice_date',
         'customer_code',
         'customer_name',
+        'seller_name',
         'customer_address',
         'customer_tax_id',
         'customer_phone',
@@ -32,6 +33,7 @@ class Invoice extends Model
         'grand_total',
         'status',
         'due_date',
+        'doc_type',
     ];
 
     protected $casts = [
@@ -46,4 +48,19 @@ class Invoice extends Model
         'vat' => 'decimal:2',
         'grand_total' => 'decimal:2',
     ];
+
+    protected $appends = ['doc_type_label'];
+
+    /**
+     * Get the Thai label for doc_type
+     */
+    public function getDocTypeLabelAttribute()
+    {
+        return match($this->doc_type) {
+            'original' => 'ต้นฉบับ',
+            'copy' => 'สำเนา',
+            default => $this->doc_type,
+        };
+    }
 }
+
