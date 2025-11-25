@@ -65,7 +65,7 @@ class ReceiptController extends Controller
         $validated = $request->validate([
             'receipt_no' => 'required|string|max:50|unique:receipts,receipt_no,' . $id,
             'date' => 'required|date',
-            'customer' => 'required|string|max:255',
+            'customer' => 'nullable|string|max:255',
             'seller_name' => 'nullable|string|max:255',
             'customer_address' => 'nullable|string',
             'customer_tax_id' => 'nullable|string|max:20',

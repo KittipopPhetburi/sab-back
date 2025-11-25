@@ -38,31 +38,39 @@ class AuthController extends Controller
     // ✅ เข้าสู่ระบบ
    public function login(Request $request)
 {
-    $validated = $request->validate([
-        'username' => 'required|string',
-        'password' => 'required|string',
-    ]);
+    try {
+        $validated = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-    $user = \App\Models\User::where('username', $validated['username'])->first();
+        $user = \App\Models\User::where('username', $validated['username'])->first();
 
-    if (!$user || !\Hash::check($validated['password'], $user->password)) {
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+            ], 401);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'เข้าสู่ระบบสำเร็จ',
+            'user' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'fullname' => $user->fullname,
+                'email' => $user->email,
+                'role' => $user->role,
+            ],
+        ]);
+    } catch (\Exception $e) {
         return response()->json([
             'status' => 'error',
-            'message' => 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
-        ], 401);
+            'message' => 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
+            'error' => $e->getMessage(),
+        ], 500);
     }
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'เข้าสู่ระบบสำเร็จ',
-        'user' => [
-            'id' => $user->id,
-            'username' => $user->username,
-            'fullname' => $user->fullname,
-            'email' => $user->email,
-            'role' => $user->role,
-        ],
-    ]);
 }
 
 }
