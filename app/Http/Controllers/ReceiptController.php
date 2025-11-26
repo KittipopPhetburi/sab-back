@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Receipt;
@@ -19,32 +18,34 @@ class ReceiptController extends Controller
             'receipt_no' => 'required|string|max:50|unique:receipts',
             'date' => 'required|date',
             'customer' => 'required|string|max:255',
+            'customer_code' => 'nullable|string|max:50',
+            'customer_branch_name' => 'nullable|string|max:255',
             'seller_name' => 'nullable|string|max:255',
+            'salesperson' => 'nullable|string|max:255',
+            'branch_name' => 'nullable|string|max:255',
             'customer_address' => 'nullable|string',
             'customer_tax_id' => 'nullable|string|max:20',
             'customer_phone' => 'nullable|string|max:20',
             'customer_email' => 'nullable|string|email|max:255',
+            'shipping_address' => 'nullable|string',
+            'shipping_phone' => 'nullable|string|max:20',
             'discount' => 'nullable|numeric|min:0',
             'vat_rate' => 'nullable|numeric|min:0',
             'subtotal' => 'nullable|numeric|min:0',
             'discount_amount' => 'nullable|numeric|min:0',
             'after_discount' => 'nullable|numeric|min:0',
             'vat' => 'nullable|numeric|min:0',
+            'grand_total' => 'nullable|numeric|min:0',
             'invoice_ref' => 'nullable|string|max:255',
             'amount' => 'required|numeric|min:0',
             'description' => 'nullable|string',
-            'status' => 'required|in:ร่าง,รอออก,ออกแล้ว,ยกเลิก',
-            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
+            'qty' => 'nullable|integer|min:1',
+            'unit' => 'nullable|string|max:50',
+            'items' => 'nullable|string',
+            'notes' => 'nullable|string',
+            'status' => 'nullable|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
+            'doc_type' => 'nullable|string|in:original,copy',
         ]);
-
-        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
-        if (isset($validated['doc_type'])) {
-            if ($validated['doc_type'] === 'ต้นฉบับ') {
-                $validated['doc_type'] = 'original';
-            } elseif ($validated['doc_type'] === 'สำเนา') {
-                $validated['doc_type'] = 'copy';
-            }
-        }
 
         $receipt = Receipt::create($validated);
 
@@ -66,32 +67,34 @@ class ReceiptController extends Controller
             'receipt_no' => 'required|string|max:50|unique:receipts,receipt_no,' . $id,
             'date' => 'required|date',
             'customer' => 'nullable|string|max:255',
+            'customer_code' => 'nullable|string|max:50',
+            'customer_branch_name' => 'nullable|string|max:255',
             'seller_name' => 'nullable|string|max:255',
+            'salesperson' => 'nullable|string|max:255',
+            'branch_name' => 'nullable|string|max:255',
             'customer_address' => 'nullable|string',
             'customer_tax_id' => 'nullable|string|max:20',
             'customer_phone' => 'nullable|string|max:20',
             'customer_email' => 'nullable|string|email|max:255',
+            'shipping_address' => 'nullable|string',
+            'shipping_phone' => 'nullable|string|max:20',
             'discount' => 'nullable|numeric|min:0',
             'vat_rate' => 'nullable|numeric|min:0',
             'subtotal' => 'nullable|numeric|min:0',
             'discount_amount' => 'nullable|numeric|min:0',
             'after_discount' => 'nullable|numeric|min:0',
             'vat' => 'nullable|numeric|min:0',
+            'grand_total' => 'nullable|numeric|min:0',
             'invoice_ref' => 'nullable|string|max:255',
             'amount' => 'required|numeric|min:0',
             'description' => 'nullable|string',
-            'status' => 'required|in:ร่าง,รอออก,ออกแล้ว,ยกเลิก',
-            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
+            'qty' => 'nullable|integer|min:1',
+            'unit' => 'nullable|string|max:50',
+            'items' => 'nullable|json',
+            'notes' => 'nullable|string',
+            'status' => 'nullable|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
+            'doc_type' => 'nullable|string|in:original,copy',
         ]);
-
-        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
-        if (isset($validated['doc_type'])) {
-            if ($validated['doc_type'] === 'ต้นฉบับ') {
-                $validated['doc_type'] = 'original';
-            } elseif ($validated['doc_type'] === 'สำเนา') {
-                $validated['doc_type'] = 'copy';
-            }
-        }
 
         $receipt = Receipt::findOrFail($id);
         $receipt->update($validated);
