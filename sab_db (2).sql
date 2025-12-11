@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2025 at 08:45 AM
+-- Generation Time: Nov 26, 2025 at 11:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -145,6 +145,7 @@ CREATE TABLE `invoices` (
   `shipping_address` text DEFAULT NULL,
   `shipping_phone` varchar(255) DEFAULT NULL,
   `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`items`)),
+  `qty` int(11) NOT NULL DEFAULT 1,
   `notes` text DEFAULT NULL,
   `discount` decimal(5,2) NOT NULL DEFAULT 0.00,
   `vat_rate` decimal(5,2) NOT NULL DEFAULT 7.00,
@@ -164,9 +165,10 @@ CREATE TABLE `invoices` (
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `invoice_no`, `invoice_date`, `customer_code`, `customer_name`, `seller_name`, `customer_address`, `customer_tax_id`, `customer_phone`, `customer_email`, `reference_doc`, `shipping_address`, `shipping_phone`, `items`, `notes`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`, `status`, `doc_type`, `due_date`, `created_at`, `updated_at`) VALUES
-(10, 'INV20250001', '2025-11-19', 'CUS-0002', 'Yok-enterprise', NULL, 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '1', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763544284753\",\"description\":\"kokok\",\"amount\":6000}]', '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 0.00, 7.00, 6000.00, 0.00, 6000.00, 420.00, 6420.00, 'pending', 'original', NULL, '2025-11-19 02:25:39', '2025-11-20 23:19:48'),
-(12, 'INV20250002', '2025-11-20', 'CUS-0001', 'Test', 'bmnz', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '1', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '0987654321', '[{\"id\":\"1763607290722\",\"description\":\"hona\",\"amount\":8000}]', '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 0.00, 7.00, 8000.00, 0.00, 8000.00, 560.00, 8560.00, 'pending', 'copy', NULL, '2025-11-19 19:55:02', '2025-11-20 23:42:23');
+INSERT INTO `invoices` (`id`, `invoice_no`, `invoice_date`, `customer_code`, `customer_name`, `seller_name`, `customer_address`, `customer_tax_id`, `customer_phone`, `customer_email`, `reference_doc`, `shipping_address`, `shipping_phone`, `items`, `qty`, `notes`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`, `status`, `doc_type`, `due_date`, `created_at`, `updated_at`) VALUES
+(10, 'INV20250001', '2025-11-19', 'CUS-0002', 'Yok-enterprise', NULL, 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '1', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763544284753\",\"description\":\"kokok\",\"amount\":6000}]', 1, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 0.00, 7.00, 6000.00, 0.00, 6000.00, 420.00, 6420.00, 'pending', 'original', NULL, '2025-11-19 02:25:39', '2025-11-20 23:19:48'),
+(12, 'INV20250002', '2025-11-20', 'CUS-0001', 'Test', 'bmnz', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '1', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '0987654321', '[{\"id\":\"1763607290722\",\"description\":\"hona\",\"amount\":8000}]', 1, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 0.00, 7.00, 8000.00, 0.00, 8000.00, 560.00, 8560.00, 'pending', 'copy', NULL, '2025-11-19 19:55:02', '2025-11-20 23:42:23'),
+(14, 'INV20250003', '2025-11-26', 'CUS-0001', 'Test', 'fsd', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '2', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '0987654321', '[{\"id\":\"1764138165060\",\"description\":\"Router\",\"qty\":1.99,\"unit\":\"\\u0e0a\\u0e34\\u0e49\\u0e19\",\"price\":7500,\"amount\":14925,\"productId\":1}]', 1, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 0.00, 7.00, 14925.00, 0.00, 14925.00, 1044.75, 15969.75, 'draft', 'original', NULL, '2025-11-25 23:22:59', '2025-11-25 23:22:59');
 
 -- --------------------------------------------------------
 
@@ -223,7 +225,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (42, '2025_11_13_071053_add_deduction_format_to_withholding_taxes_table', 12),
 (43, '2025_11_13_083434_add_deduction_order_to_withholding_taxes_table', 13),
 (44, '2025_11_20_020036_add_seller_name_to_receipts_table', 14),
-(45, '2025_11_20_021100_add_seller_name_to_invoices_table', 15);
+(45, '2025_11_20_021100_add_seller_name_to_invoices_table', 15),
+(46, '2025_11_24_023922_add_discount_toreceipts_table', 16),
+(47, '2025_11_26_043158_add_qty_to_quotations_invoices_receipts_purchase_orders_table', 17),
+(48, '2025_11_26_065128_add_unit_to_receipts_table', 18),
+(49, '2025_11_26_071317_add_items_field_to_receipts_table', 19);
 
 -- --------------------------------------------------------
 
@@ -321,6 +327,13 @@ CREATE TABLE `products` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `code`, `name`, `type`, `category_id`, `quantity`, `unit`, `purchase_price`, `sale_price`, `description`, `price`, `stock`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'PRD-001', 'Router', 'สินค้า', 1, 4, 'ชิ้น', 5000.00, 7500.00, 'Super router', 0.00, 0, 'active', '2025-11-25 23:02:39', '2025-11-25 23:02:39');
+
 -- --------------------------------------------------------
 
 --
@@ -365,6 +378,7 @@ CREATE TABLE `purchase_orders` (
   `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`items`)),
   `supplier` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `qty` int(11) NOT NULL DEFAULT 1,
   `discount` decimal(5,2) NOT NULL DEFAULT 0.00,
   `vat_rate` decimal(5,2) NOT NULL DEFAULT 7.00,
   `subtotal` decimal(15,2) NOT NULL DEFAULT 0.00,
@@ -388,9 +402,10 @@ CREATE TABLE `purchase_orders` (
 -- Dumping data for table `purchase_orders`
 --
 
-INSERT INTO `purchase_orders` (`id`, `po_number`, `date`, `supplier_code`, `supplier_name`, `supplier_address`, `supplier_tax_id`, `supplier_phone`, `supplier_email`, `reference_doc`, `shipping_address`, `shipping_phone`, `items`, `supplier`, `description`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`, `notes`, `expected_delivery_date`, `buyer_name`, `buyer_phone`, `buyer_email`, `amount`, `status`, `doc_type`, `created_at`, `updated_at`) VALUES
-(12, 'PO20250001', '2025-11-21', 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '2', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763705656778\",\"description\":\"Cartoon\",\"amount\":2000}]', NULL, NULL, 0.00, 7.00, 2000.00, 0.00, 2000.00, 140.00, 2140.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'YoungYok', NULL, NULL, NULL, 'รอจัดส่ง', 'original', '2025-11-20 23:14:35', '2025-11-20 23:21:01'),
-(13, 'PO20250002-1', '2025-11-21', 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '2', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763705684941\",\"description\":\"Comic\",\"amount\":100}]', NULL, NULL, 0.00, 7.00, 100.00, 0.00, 100.00, 7.00, 107.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'toomtam', NULL, NULL, NULL, 'รอจัดส่ง', 'copy', '2025-11-20 23:15:05', '2025-11-20 23:20:59');
+INSERT INTO `purchase_orders` (`id`, `po_number`, `date`, `supplier_code`, `supplier_name`, `supplier_address`, `supplier_tax_id`, `supplier_phone`, `supplier_email`, `reference_doc`, `shipping_address`, `shipping_phone`, `items`, `supplier`, `description`, `qty`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`, `notes`, `expected_delivery_date`, `buyer_name`, `buyer_phone`, `buyer_email`, `amount`, `status`, `doc_type`, `created_at`, `updated_at`) VALUES
+(12, 'PO20250001', '2025-11-21', 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '2', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763705656778\",\"description\":\"Cartoon\",\"amount\":2000}]', NULL, NULL, 1, 0.00, 7.00, 2000.00, 0.00, 2000.00, 140.00, 2140.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'YoungYok', NULL, NULL, NULL, 'รอจัดส่ง', 'original', '2025-11-20 23:14:35', '2025-11-20 23:21:01'),
+(13, 'PO20250002-1', '2025-11-21', 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '2', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763705684941\",\"description\":\"Comic\",\"amount\":100}]', NULL, NULL, 1, 0.00, 7.00, 100.00, 0.00, 100.00, 7.00, 107.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'toomtam', NULL, NULL, NULL, 'รอจัดส่ง', 'copy', '2025-11-20 23:15:05', '2025-11-20 23:20:59'),
+(16, 'PO20250002', '2025-11-26', 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '1', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1764138140947\",\"description\":\"Router\",\"qty\":1,\"unit\":\"\\u0e0a\\u0e34\\u0e49\\u0e19\",\"price\":7500,\"amount\":7500,\"productId\":1}]', NULL, NULL, 1, 0.00, 7.00, 7500.00, 0.00, 7500.00, 525.00, 8025.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'eee', NULL, NULL, NULL, 'ร่าง', 'original', '2025-11-25 23:22:29', '2025-11-25 23:22:29');
 
 -- --------------------------------------------------------
 
@@ -417,6 +432,7 @@ CREATE TABLE `quotations` (
   `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`items`)),
   `customer` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `qty` int(11) NOT NULL DEFAULT 1,
   `discount` decimal(5,2) NOT NULL DEFAULT 0.00,
   `vat_rate` decimal(5,2) NOT NULL DEFAULT 7.00,
   `subtotal` decimal(15,2) NOT NULL DEFAULT 0.00,
@@ -437,9 +453,9 @@ CREATE TABLE `quotations` (
 -- Dumping data for table `quotations`
 --
 
-INSERT INTO `quotations` (`id`, `quotation_number`, `date`, `seller_name`, `seller_phone`, `seller_email`, `customer_code`, `customer_name`, `customer_address`, `customer_tax_id`, `customer_phone`, `customer_email`, `reference_doc`, `shipping_address`, `shipping_phone`, `items`, `customer`, `description`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`, `notes`, `amount`, `status`, `doc_type`, `valid_until`, `created_at`, `updated_at`) VALUES
-(50, 'QT20250001', '2025-11-17', 'xv', NULL, NULL, 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '2', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763368019034\",\"description\":\"gggg\",\"amount\":50000}]', NULL, NULL, 0.00, 7.00, 50000.00, 0.00, 50000.00, 3500.00, 53500.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'อนุมัติแล้ว', 'copy', NULL, '2025-11-17 01:27:05', '2025-11-20 23:22:08'),
-(51, 'QT20250002', '2025-11-18', 'homd', NULL, NULL, 'CUS-0001', 'Test', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '3', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '0987654321', '[{\"id\":\"1763434760067\",\"description\":\"zzcv\",\"amount\":5000}]', NULL, NULL, 20.00, 7.00, 5000.00, 1000.00, 4000.00, 280.00, 4280.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'รออนุมัติ', 'original', NULL, '2025-11-17 19:59:36', '2025-11-20 23:23:11');
+INSERT INTO `quotations` (`id`, `quotation_number`, `date`, `seller_name`, `seller_phone`, `seller_email`, `customer_code`, `customer_name`, `customer_address`, `customer_tax_id`, `customer_phone`, `customer_email`, `reference_doc`, `shipping_address`, `shipping_phone`, `items`, `customer`, `description`, `qty`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`, `notes`, `amount`, `status`, `doc_type`, `valid_until`, `created_at`, `updated_at`) VALUES
+(50, 'QT20250001', '2025-11-17', 'xv', NULL, NULL, 'CUS-0002', 'Yok-enterprise', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', '2', 'แก่งคอย สระบุรี 18110', '082456987', '[{\"id\":\"1763368019034\",\"description\":\"gggg\",\"amount\":50000}]', NULL, NULL, 1, 0.00, 7.00, 50000.00, 0.00, 50000.00, 3500.00, 53500.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'อนุมัติแล้ว', 'copy', NULL, '2025-11-17 01:27:05', '2025-11-20 23:22:08'),
+(51, 'QT20250002', '2025-11-18', '44', NULL, NULL, 'CUS-0001', 'Test', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '3', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '0987654321', '[{\"id\":\"1763434760067\",\"description\":\"zzcv\",\"amount\":5000}]', NULL, NULL, 1, 20.00, 7.00, 5000.00, 1000.00, 4000.00, 280.00, 4280.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, 'ร่าง', 'original', NULL, '2025-11-17 19:59:36', '2025-11-24 01:21:04');
 
 -- --------------------------------------------------------
 
@@ -452,27 +468,47 @@ CREATE TABLE `receipts` (
   `receipt_no` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `customer` varchar(255) NOT NULL,
+  `customer_code` varchar(255) DEFAULT NULL,
+  `customer_branch_name` varchar(255) DEFAULT NULL,
   `seller_name` varchar(255) DEFAULT NULL,
+  `salesperson` varchar(255) DEFAULT NULL,
+  `branch_name` varchar(255) DEFAULT NULL,
   `customer_address` text DEFAULT NULL,
   `customer_tax_id` varchar(255) DEFAULT NULL,
   `customer_phone` varchar(255) DEFAULT NULL,
   `customer_email` varchar(255) DEFAULT NULL,
+  `shipping_address` varchar(255) DEFAULT NULL,
+  `shipping_phone` varchar(255) DEFAULT NULL,
   `invoice_ref` varchar(255) DEFAULT NULL,
   `amount` decimal(10,2) NOT NULL,
   `description` text DEFAULT NULL,
+  `items` text DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `qty` int(11) NOT NULL DEFAULT 1,
+  `unit` varchar(50) DEFAULT NULL,
   `status` enum('ร่าง','รอออก','ออกแล้ว','ยกเลิก') NOT NULL DEFAULT 'ร่าง',
   `doc_type` enum('original','copy') NOT NULL DEFAULT 'original',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `discount` decimal(5,2) NOT NULL DEFAULT 0.00,
+  `vat_rate` decimal(5,2) NOT NULL DEFAULT 7.00,
+  `subtotal` decimal(15,2) NOT NULL,
+  `discount_amount` decimal(15,2) NOT NULL,
+  `after_discount` decimal(15,2) NOT NULL,
+  `vat` decimal(15,2) NOT NULL,
+  `grand_total` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `receipts`
 --
 
-INSERT INTO `receipts` (`id`, `receipt_no`, `date`, `customer`, `seller_name`, `customer_address`, `customer_tax_id`, `customer_phone`, `customer_email`, `invoice_ref`, `amount`, `description`, `status`, `doc_type`, `created_at`, `updated_at`) VALUES
-(19, 'REC20250001', '2025-11-21', 'Test', NULL, '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '3', 214.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 'รอออก', 'original', '2025-11-20 23:16:20', '2025-11-20 23:37:36'),
-(20, 'REC20250002', '2025-11-21', 'Test', 'ฝน', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '2', 535.00, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 'ร่าง', 'copy', '2025-11-20 23:16:41', '2025-11-20 23:41:43');
+INSERT INTO `receipts` (`id`, `receipt_no`, `date`, `customer`, `customer_code`, `customer_branch_name`, `seller_name`, `salesperson`, `branch_name`, `customer_address`, `customer_tax_id`, `customer_phone`, `customer_email`, `shipping_address`, `shipping_phone`, `invoice_ref`, `amount`, `description`, `items`, `notes`, `qty`, `unit`, `status`, `doc_type`, `created_at`, `updated_at`, `discount`, `vat_rate`, `subtotal`, `discount_amount`, `after_discount`, `vat`, `grand_total`) VALUES
+(19, 'REC20250001', '2025-11-21', 'Test', NULL, NULL, '55', NULL, NULL, '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', NULL, NULL, '3', 5296.50, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, NULL, 1, NULL, 'ร่าง', 'original', '2025-11-20 23:16:20', '2025-11-24 01:29:01', 1.00, 7.00, 5000.00, 50.00, 4950.00, 346.50, NULL),
+(20, 'REC20250002', '2025-11-21', 'Test', NULL, NULL, 'ฝน', NULL, NULL, '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', NULL, NULL, '2', 492.31, '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', NULL, NULL, 1, NULL, 'ร่าง', 'copy', '2025-11-20 23:16:41', '2025-11-24 03:00:37', 10.00, 7.00, 511.23, 51.12, 460.11, 32.21, NULL),
+(35, 'REC20250003', '2025-11-26', 'Yok-enterprise', NULL, NULL, NULL, NULL, NULL, 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', NULL, NULL, '1', 15889.50, NULL, NULL, NULL, 1, NULL, 'ร่าง', 'original', '2025-11-25 23:53:31', '2025-11-25 23:53:31', 0.00, 7.00, 14850.00, 0.00, 14850.00, 1039.50, NULL),
+(36, 'REC20250004', '2025-11-26', 'Yok-enterprise', 'CUS-0002', 'แก่งคอย', 'dddddd', 'dddddd', 'แก่งคอย', 'แก่งคอย สระบุรี 18110', '0123654781231', '082456987', 'yok@gmail.com', 'แก่งคอย สระบุรี 18110', '082456987', '2', 128400.00, NULL, '\"[{\\\"id\\\":\\\"1764144798131\\\",\\\"description\\\":\\\"Router\\\",\\\"qty\\\":20,\\\"unit\\\":\\\"\\u0e0a\\u0e34\\u0e49\\u0e19\\\",\\\"price\\\":7500,\\\"amount\\\":150000,\\\"productId\\\":1}]\"', '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 1, NULL, 'ร่าง', 'original', '2025-11-26 01:13:26', '2025-11-26 01:14:00', 20.00, 7.00, 150000.00, 30000.00, 120000.00, 8400.00, 128400.00),
+(37, 'REC20250005', '2025-11-26', 'Test', 'CUS-0001', 'สำนักงานใหญ่', 'aaaa', 'aaaa', 'สำนักงานใหญ่', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '1234567890123', '0987654321', 'tester@gmail.com', '128/47 หมู่ 6 ถนนแจ้งวัฒนะ ต.คลองเกลือ อ.ปากเกร็ด จ.นนทบุรี 11120', '0987654321', '2', 6420.00, NULL, '\"[{\\\"id\\\":\\\"1764144916128\\\",\\\"description\\\":\\\"Router\\\",\\\"qty\\\":52,\\\"unit\\\":\\\"\\u0e0a\\u0e34\\u0e49\\u0e19\\\",\\\"price\\\":7500,\\\"amount\\\":7500,\\\"productId\\\":1}]\"', '1. การชำระเงินภายในเวลาที่กำหนด 7 วัน ตั้งแต่วันที่ได้รับสินค้า\n2. การส่งมอบสินค้าต้องเป็นไปตามเงื่อนไขที่ระบุไว้ในใบสั่งซื้อนี้เท่านั้น คลาง POSTER ONLY การขนส่ง\n3. ค่าบริการจัดส่งคิดตามระยะทางจริงรวมภาษีมูลค่าเพิ่ม', 1, NULL, 'ร่าง', 'original', '2025-11-26 01:15:40', '2025-11-26 01:15:40', 20.00, 7.00, 7500.00, 1500.00, 6000.00, 420.00, 6420.00);
 
 -- --------------------------------------------------------
 
@@ -634,6 +670,13 @@ CREATE TABLE `withholding_taxes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `withholding_taxes`
+--
+
+INSERT INTO `withholding_taxes` (`id`, `doc_number`, `doc_date`, `sequence_number`, `payer_tax_id`, `payer_name`, `payer_address`, `representative_tax_id`, `representative_name`, `representative_address`, `deduction_mode`, `deduction_other`, `deduction_format`, `deduction_order`, `recipient_tax_id`, `recipient_name`, `recipient_address`, `recipient_type`, `company_type`, `total_amount`, `total_tax`, `status`, `created_by`, `notes`, `created_at`, `updated_at`) VALUES
+(9, 'WHT20250001', '2025-11-24', '1', '0135561023453', 'บริษัท ไอ ที บี ที คอร์ปอเรชั่น จำกัด', '170/372 หมู่ที่ 1 ตำบลบางคูวัต อำเภอเมืองปทุมธานี จังหวัดปทุมธานี 12000', '1100119900112', 'ต้นไผ่คับ', 'DDplace', 'wht', NULL, '1', NULL, '1234567890111', 'DDFarm', 'DDfarm kaoyai 100000110', 'individual', NULL, 500000.00, 15000.00, 'ร่าง', 'admin', 'AEIOU', '2025-11-24 03:08:46', '2025-11-24 03:08:46');
+
 -- --------------------------------------------------------
 
 --
@@ -652,6 +695,13 @@ CREATE TABLE `withholding_tax_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `withholding_tax_items`
+--
+
+INSERT INTO `withholding_tax_items` (`id`, `withholding_tax_id`, `type`, `description`, `date`, `tax_rate`, `amount`, `tax_amount`, `created_at`, `updated_at`) VALUES
+(16, 9, '40(2)', 'ค่าธรรมเนียม ค่านายหน้า ค่าโฆษณา ฯลฯ ตามมาตรา 40(2)', '2025-11-24', 3.00, 500000.00, 15000.00, '2025-11-24 03:08:46', '2025-11-24 03:08:46');
 
 --
 -- Indexes for dumped tables
@@ -821,13 +871,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `payment_vouchers`
@@ -845,7 +895,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `projects`
@@ -857,19 +907,19 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `purchase_orders`
 --
 ALTER TABLE `purchase_orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `quotations`
 --
 ALTER TABLE `quotations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `receipts`
 --
 ALTER TABLE `receipts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `receive_vouchers`
@@ -893,13 +943,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `withholding_taxes`
 --
 ALTER TABLE `withholding_taxes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `withholding_tax_items`
 --
 ALTER TABLE `withholding_tax_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
