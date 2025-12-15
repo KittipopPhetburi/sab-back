@@ -1,0 +1,345 @@
+﻿Status: 500
+Error: {
+    "message": "SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it (SQL: select * from `quotations` order by `created_at` desc)",
+    "exception": "Illuminate\\Database\\QueryException",
+    "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
+    "line": 712,
+    "trace": [
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
+            "line": 672,
+            "function": "runQueryCallback",
+            "class": "Illuminate\\Database\\Connection",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php",
+            "line": 359,
+            "function": "run",
+            "class": "Illuminate\\Database\\Connection",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
+            "line": 2413,
+            "function": "select",
+            "class": "Illuminate\\Database\\Connection",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
+            "line": 2402,
+            "function": "runSelect",
+            "class": "Illuminate\\Database\\Query\\Builder",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
+            "line": 2936,
+            "function": "Illuminate\\Database\\Query\\{closure}",
+            "class": "Illuminate\\Database\\Query\\Builder",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php",
+            "line": 2401,
+            "function": "onceWithColumns",
+            "class": "Illuminate\\Database\\Query\\Builder",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
+            "line": 625,
+            "function": "get",
+            "class": "Illuminate\\Database\\Query\\Builder",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
+            "line": 609,
+            "function": "getModels",
+            "class": "Illuminate\\Database\\Eloquent\\Builder",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\app\\Http\\Controllers\\QuotationController.php",
+            "line": 12,
+            "function": "get",
+            "class": "Illuminate\\Database\\Eloquent\\Builder",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
+            "line": 54,
+            "function": "index",
+            "class": "App\\Http\\Controllers\\QuotationController",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
+            "line": 45,
+            "function": "callAction",
+            "class": "Illuminate\\Routing\\Controller",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 261,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\ControllerDispatcher",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
+            "line": 205,
+            "function": "runController",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 721,
+            "function": "run",
+            "class": "Illuminate\\Routing\\Route",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 128,
+            "function": "Illuminate\\Routing\\{closure}",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
+            "line": 50,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
+            "line": 127,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
+            "line": 93,
+            "function": "handleRequest",
+            "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
+            "line": 55,
+            "function": "handleRequestUsingNamedLimiter",
+            "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 103,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 719,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 698,
+            "function": "runRouteWithinStack",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 662,
+            "function": "runRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
+            "line": 651,
+            "function": "dispatchToRoute",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 167,
+            "function": "dispatch",
+            "class": "Illuminate\\Routing\\Router",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 128,
+            "function": "Illuminate\\Foundation\\Http\\{closure}",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
+            "line": 21,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",
+            "line": 31,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
+            "line": 21,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",
+            "line": 40,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
+            "line": 27,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
+            "line": 86,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php",
+            "line": 52,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Fruitcake\\Cors\\HandleCors",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php",
+            "line": 39,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "Illuminate\\Http\\Middleware\\TrustProxies",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\app\\Http\\Middleware\\HandleCors.php",
+            "line": 24,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 167,
+            "function": "handle",
+            "class": "App\\Http\\Middleware\\HandleCors",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
+            "line": 103,
+            "function": "Illuminate\\Pipeline\\{closure}",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 142,
+            "function": "then",
+            "class": "Illuminate\\Pipeline\\Pipeline",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
+            "line": 111,
+            "function": "sendRequestThroughRouter",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        },
+        {
+            "file": "C:\\Users\\ADMIN\\Desktop\\Work_ITBT\\sab-back\\debug_crash.php",
+            "line": 21,
+            "function": "handle",
+            "class": "Illuminate\\Foundation\\Http\\Kernel",
+            "type": "->"
+        }
+    ]
+}

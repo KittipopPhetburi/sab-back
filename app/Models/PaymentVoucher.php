@@ -32,6 +32,7 @@ class PaymentVoucher extends Model
         'after_discount',
         'vat',
         'grand_total',
+        'doc_type',
     ];
 
     protected $casts = [
@@ -48,4 +49,21 @@ class PaymentVoucher extends Model
         'vat' => 'decimal:2',
         'grand_total' => 'decimal:2',
     ];
+
+    protected $appends = ['doc_type_label'];
+
+    /**
+     * Get the Thai label for doc_type
+     */
+    public function getDocTypeLabelAttribute()
+    {
+        switch ($this->doc_type) {
+            case 'original':
+                return 'ต้นฉบับ';
+            case 'copy':
+                return 'สำเนา';
+            default:
+                return $this->doc_type;
+        }
+    }
 }

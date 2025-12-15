@@ -62,11 +62,14 @@ class Quotation extends Model
      */
     public function getDocTypeLabelAttribute()
     {
-        return match($this->doc_type) {
-            'original' => 'ต้นฉบับ',
-            'copy' => 'สำเนา',
-            default => $this->doc_type,
-        };
+        switch ($this->doc_type) {
+            case 'original':
+                return 'ต้นฉบับ';
+            case 'copy':
+                return 'สำเนา';
+            default:
+                return $this->doc_type;
+        }
     }
 
 }

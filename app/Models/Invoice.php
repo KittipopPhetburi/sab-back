@@ -56,11 +56,12 @@ class Invoice extends Model
      */
     public function getDocTypeLabelAttribute()
     {
-        return match($this->doc_type) {
+        $labels = [
             'original' => 'ต้นฉบับ',
             'copy' => 'สำเนา',
-            default => $this->doc_type,
-        };
+        ];
+
+        return isset($labels[$this->doc_type]) ? $labels[$this->doc_type] : $this->doc_type;
     }
 }
 

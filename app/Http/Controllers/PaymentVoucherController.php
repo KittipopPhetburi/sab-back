@@ -37,7 +37,21 @@ class PaymentVoucherController extends Controller
             'after_discount' => 'nullable|numeric|min:0',
             'vat' => 'nullable|numeric|min:0',
             'grand_total' => 'nullable|numeric|min:0',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
+
+        if (isset($validated['items'])) {
+            $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
+        }
 
         $voucher = PaymentVoucher::create($validated);
 
@@ -74,7 +88,21 @@ class PaymentVoucherController extends Controller
             'after_discount' => 'nullable|numeric|min:0',
             'vat' => 'nullable|numeric|min:0',
             'grand_total' => 'nullable|numeric|min:0',
+            'doc_type' => 'nullable|string|in:original,copy,ต้นฉบับ,สำเนา',
         ]);
+
+        if (isset($validated['items'])) {
+            $validated['items'] = json_decode($validated['items'], true);
+        }
+
+        // แปลงค่า doc_type จากภาษาไทยเป็นภาษาอังกฤษ
+        if (isset($validated['doc_type'])) {
+            if ($validated['doc_type'] === 'ต้นฉบับ') {
+                $validated['doc_type'] = 'original';
+            } elseif ($validated['doc_type'] === 'สำเนา') {
+                $validated['doc_type'] = 'copy';
+            }
+        }
 
         $voucher = PaymentVoucher::findOrFail($id);
         $voucher->update($validated);
