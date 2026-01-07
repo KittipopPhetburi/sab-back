@@ -22,7 +22,8 @@ class CustomerController extends Controller
             'branch_name' => 'nullable|string|max:100',
             'tax_id' => 'nullable|string|size:13|regex:/^[0-9]{13}$/',
             'contact_person' => 'nullable|string|max:100',
-            'phone' => 'nullable|string|max:50',
+            // แก้ไข: ให้เป็น string ยาวได้ถึง 255 ตัวอักษร และไม่เช็คตัวเลข
+            'phone' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'address' => 'required|string',
             'note' => 'nullable|string',
@@ -39,10 +40,9 @@ class CustomerController extends Controller
             'type.in' => 'ประเภทต้องเป็น ลูกค้า, คู่ค้า หรือ ทั้งคู่ค้าและลูกค้า',
             'tax_id.size' => 'เลขประจำตัวผู้เสียภาษีต้องเป็น 13 หลัก',
             'tax_id.regex' => 'เลขประจำตัวผู้เสียภาษีต้องเป็นตัวเลขเท่านั้น',
-            'phone.required' => 'กรุณากรอกเบอร์โทรศัพท์',
-            'phone.min' => 'เบอร์โทรศัพท์ต้องมีอย่างน้อย 9 หลัก',
-            'phone.max' => 'เบอร์โทรศัพท์ต้องไม่เกิน 10 หลัก',
-            'phone.regex' => 'เบอร์โทรศัพท์ต้องเป็นตัวเลขเท่านั้น',
+            
+            // ลบกฎเกี่ยวกับ phone ออกหมดแล้วครับ
+
             'email.email' => 'รูปแบบอีเมลไม่ถูกต้อง',
             'address.required' => 'กรุณากรอกที่อยู่',
             'status.required' => 'กรุณาเลือกสถานะ',
@@ -67,7 +67,8 @@ class CustomerController extends Controller
             'branch_name' => 'nullable|string|max:100',
             'tax_id' => 'nullable|string|size:13|regex:/^[0-9]{13}$/',
             'contact_person' => 'nullable|string|max:100',
-            'phone' => 'nullable|string|max:50',
+            // แก้ไข: ให้เป็น string ยาวได้ถึง 255 ตัวอักษร
+            'phone' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'address' => 'required|string',
             'note' => 'nullable|string',
@@ -84,10 +85,9 @@ class CustomerController extends Controller
             'type.in' => 'ประเภทต้องเป็น ลูกค้า, คู่ค้า หรือ ทั้งคู่ค้าและลูกค้า',
             'tax_id.size' => 'เลขประจำตัวผู้เสียภาษีต้องเป็น 13 หลัก',
             'tax_id.regex' => 'เลขประจำตัวผู้เสียภาษีต้องเป็นตัวเลขเท่านั้น',
-            'phone.required' => 'กรุณากรอกเบอร์โทรศัพท์',
-            'phone.min' => 'เบอร์โทรศัพท์ต้องมีอย่างน้อย 9 หลัก',
-            'phone.max' => 'เบอร์โทรศัพท์ต้องไม่เกิน 10 หลัก',
-            'phone.regex' => 'เบอร์โทรศัพท์ต้องเป็นตัวเลขเท่านั้น',
+            
+             // ลบกฎเกี่ยวกับ phone ออกหมดแล้วครับ
+
             'email.email' => 'รูปแบบอีเมลไม่ถูกต้อง',
             'address.required' => 'กรุณากรอกที่อยู่',
             'status.required' => 'กรุณาเลือกสถานะ',
