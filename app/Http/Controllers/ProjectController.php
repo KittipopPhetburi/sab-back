@@ -25,6 +25,7 @@ class ProjectController extends Controller
                     'start_date' => $project->start_date->format('Y-m-d'),
                     'end_date' => $project->end_date ? $project->end_date->format('Y-m-d') : null,
                     'description' => $project->description,
+                    'notes' => $project->notes,
                     'status' => $project->status,
                     'budget' => (float) $project->amount, // For compatibility
                     'progress' => $project->installments,
@@ -48,6 +49,7 @@ class ProjectController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'description' => 'nullable|string',
+            'notes' => 'nullable|string',
             'status' => 'nullable|in:กำลังดำเนินงาน,จบโครงการแล้ว,ยกเลิก',
         ]);
 
@@ -77,6 +79,7 @@ class ProjectController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'description' => 'nullable|string',
+            'notes' => 'nullable|string',
             'status' => 'nullable|in:กำลังดำเนินงาน,จบโครงการแล้ว,ยกเลิก',
         ]);
 

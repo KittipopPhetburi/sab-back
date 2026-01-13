@@ -20,11 +20,10 @@ class Project extends Model
         'end_date',
         'description',
         'status',
+        'notes',
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
-        'guarantee' => 'decimal:2',
         'start_date' => 'date',
         'end_date' => 'date',
     ];
