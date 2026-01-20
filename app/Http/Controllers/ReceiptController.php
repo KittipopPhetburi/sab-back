@@ -43,7 +43,7 @@ class ReceiptController extends Controller
             'unit' => 'nullable|string|max:50',
             'items' => 'nullable|string',
             'notes' => 'nullable|string',
-            'status' => 'nullable|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
+            'status' => 'nullable|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก,รอออก,ออกแล้ว',
             'doc_type' => 'nullable|string|in:original,copy',
         ]);
 
@@ -92,7 +92,7 @@ class ReceiptController extends Controller
             'unit' => 'nullable|string|max:50',
             'items' => 'nullable|json',
             'notes' => 'nullable|string',
-            'status' => 'nullable|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก',
+            'status' => 'nullable|in:ร่าง,รออนุมัติ,อนุมัติแล้ว,ยกเลิก,รอออก,ออกแล้ว',
             'doc_type' => 'nullable|string|in:original,copy',
         ]);
 
